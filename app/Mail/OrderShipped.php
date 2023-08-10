@@ -20,7 +20,7 @@ class OrderShipped extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public Order $order,)
+    public function __construct(protected Order $order,)
     {
         //
     }
@@ -46,7 +46,10 @@ class OrderShipped extends Mailable
     {
         return new Content(
             view: 'emails.orders.shipped',
-            text: 'emails.orders.shipped-text'
+            text: 'emails.orders.shipped-text',
+            with: [
+                'order'=>$this->order,
+            ]
         );
     }
 
