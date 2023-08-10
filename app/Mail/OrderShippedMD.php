@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -17,7 +18,9 @@ class OrderShippedMD extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        protected Order $order,
+    )
     {
         //
     }
@@ -29,7 +32,7 @@ class OrderShippedMD extends Mailable
     {
         return new Envelope(
             from: new Address('jeffrey@example.com', 'Jeffrey Way'),
-            subject: 'Order Shipped M D',
+            subject: 'Order Shipped with MD',
         );
     }
 
@@ -40,6 +43,10 @@ class OrderShippedMD extends Mailable
     {
         return new Content(
             markdown: 'emails.orders.shipped-md',
+            with: [
+                'order' => $this->order,
+                'url' => route('orders.show', ['order' => $this->order->id]),
+            ],
         );
     }
 
