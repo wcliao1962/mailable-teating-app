@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/orders/{order}/shipped', [OrderController::class, 'shipped'] );
+
+Route::get('/orders', function () {
+    return view('welcome');
+});
+
+Route::get('/mailable', function () {
+    $order = App\Models\Order::find(1);
+//    dd($order);
+    return new App\Mail\OrderShipped( $order );
+});
 
 Route::get('/', function () {
     return view('welcome');

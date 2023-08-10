@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderShipped;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -62,5 +65,17 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function shipped(Order $order): RedirectResponse
+    {
+        $order->shipped_status = true;
+        $order->save();
+
+        // Ship the order...
+
+        Mail::to($order->user)->send(new OrderShipped($order));
+
+        return redirect('/orders');
     }
 }
