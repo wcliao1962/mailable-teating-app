@@ -1,10 +1,12 @@
 <x-mail::message>
-# Introduction
+# Order Shipped
 
-The body of your message.
+Hi, {{$order->user->name}}
 
-<x-mail::button :url="''">
-Button Text
+Your order created at {{$order->created_at}} has been shipped!
+
+<x-mail::button :url="$url">
+    View Order
 </x-mail::button>
 
 Thanks,<br>
