@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderShipped;
+use App\Mail\OrderShippedMD;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -40,7 +41,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return $order->toJson();
     }
 
     /**
@@ -74,7 +75,7 @@ class OrderController extends Controller
 
         // Ship the order...
 
-        Mail::to($order->user)->send(new OrderShipped($order));
+        Mail::to($order->user)->send(new OrderShippedMD($order));
 
         return redirect('/orders');
     }

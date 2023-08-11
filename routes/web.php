@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/orders/{order}/shipped', [OrderController::class, 'shipped'] );
+Route::get('/orders/{order}', [OrderController::class, 'show'] )->name('orders.show');
 
 Route::get('/orders', function () {
     return view('welcome');
