@@ -24,7 +24,7 @@ Route::get('/orders', function () {
 Route::get('/mailable', function () {
     $order = App\Models\Order::find(1);
 //    dd($order);
-    return new App\Mail\OrderShipped( $order );
+    return new App\Mail\OrderShippedMD( $order );
 });
 
 Route::get('/', function () {
